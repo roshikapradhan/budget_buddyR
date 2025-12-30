@@ -1,5 +1,10 @@
 from django.db import migrations, models
+class BudgetGoal(models.Model):
+    amount = models.FloatField()
+    month = models.CharField(max_length=20) # e.g., "December"
 
+    def __str__(self):
+        return f"{self.month}: {self.amount}"
 class Expense(models.Model):
     CATEGORY_CHOICES = [
         ('food', 'Food 🍔'),
@@ -16,3 +21,4 @@ class Expense(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.amount}"
+    

@@ -18,7 +18,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # This helps your CSS show up online
+    'whitenoise.middleware.WhiteNoiseMiddleware',  
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -56,3 +56,4 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'tracker/static')]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 CSRF_TRUSTED_ORIGINS = ['https://budget-buddy-8vqj.onrender.com']
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

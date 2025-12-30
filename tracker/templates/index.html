@@ -2,9 +2,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+.budget-card, .split-card, .notifications {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .progress-bar {
+            background: #ffe0e6;
+            height: 20px;
+            border-radius: 10px;
+        }
+        .progress-fill {
+            background: #ff85a2;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        
     <title>Budget Buddy 🐰</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -28,6 +49,50 @@
                     <option value="bills">Bills 📄</option>
                 </select>
                 <button type="submit">Add Expense ✨</button>
+                <div class="budget-card">
+    <h3>Monthly Budget: rs 2000</h3>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 70%;"></div>
+    </div>
+    <p>You have used 70% of your budget.</p>
+</div>
+
+
+
+<div class="split-card">
+    <h3>Quick Bill Splitter 💸</h3>
+    <input type="number" id="total" placeholder="Total Amount">
+    <input type="number" id="people" placeholder="Number of people">
+    <button onclick="calculateSplit()">Split!</button>
+    <p id="split-result"></p>
+</div>
+
+<div class="main-container">
+    <div class="card budget-section">
+        <h3>Monthly Goal 🎯</h3>
+        <p>Target: $2,000 | Spent: $1,450</p>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 72%;"></div>
+        </div>
+    </div>
+
+    <div class="card split-section">
+        <h3>Bill Splitter 💸</h3>
+        <input type="number" id="total" placeholder="Total bill amount">
+        <input type="number" id="people" placeholder="How many people?">
+        <button class="btn" onclick="calculateSplit()">Calculate</button>
+        <p id="split-result"></p>
+    </div>
+</div>
+
+
+<div class="notifications">
+    <h3>Notifications 🔔</h3>
+    <ul>
+        <li>⚠️ You spent 20% more on "Shopping" this week.</li>
+        <li>✅ Rent bill paid successfully.</li>
+    </ul>
+</div>
             </form>
         </section>
 
@@ -38,5 +103,21 @@
         </section>
     </div>
     <script src="{% static 'script.js' %}"></script>
+    <script>
+function calculateSplit() {
+    const total = document.getElementById('total').value;
+    const people = document.getElementById('people').value;
+    const resultElement = document.getElementById('split-result');
+
+    if (total && people && people > 0) {
+        const perPerson = (total / people).toFixed(2);
+        resultElement.innerHTML = `Each person owes: <strong>$${perPerson}</strong> 💸`;
+        resultElement.style.color = "#ff85a2";
+    } else {
+        resultElement.innerHTML = "Please enter valid numbers!";
+        resultElement.style.color = "red";
+    }
+}
+</script>
 </body>
 </html>

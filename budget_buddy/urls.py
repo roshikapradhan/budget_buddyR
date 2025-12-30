@@ -1,7 +1,8 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from tracker import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('tracker.urls')),
+    path('', views.index, name='index'),
+    path('split/', views.bill_split, name='bill_split'), # Example
+    path('notifications/', views.notifications, name='notifications'), # Example
 ]
