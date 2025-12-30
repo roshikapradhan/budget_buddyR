@@ -69,12 +69,21 @@
 
 <div class="main-container">
     <div class="card budget-section">
-        <h3>Monthly Goal 🎯</h3>
-        <p>Target: $2,000 | Spent: $1,450</p>
-        <div class="progress-bar">
-            <div class="progress-fill" style="width: 72%;"></div>
-        </div>
+    <h3>Monthly Goal 🎯</h3>
+    <div id="budget-display-mode">
+        <p>Target: <span id="budget-value">$2,000</span> | Spent: <span id="total-spent">$0</span></p>
+        <button class="btn-small" onclick="showEditBudget()">Change Goal</button>
     </div>
+    
+    <div id="budget-edit-mode" style="display: none;">
+        <input type="number" id="new-budget-input" placeholder="Enter new budget">
+        <button class="btn-small" onclick="saveNewBudget()">Save</button>
+    </div>
+
+    <div class="progress-bar">
+        <div id="progress-fill" class="progress-fill" style="width: 0%;"></div>
+    </div>
+</div>
 
     <div class="card split-section">
         <h3>Bill Splitter 💸</h3>
@@ -121,3 +130,34 @@ function calculateSplit() {
 </script>
 </body>
 </html>
+// Load the saved budget when the page opens
+window.onload = function() {
+    const savedBudget = localStorage.getItem('userMonthlyBudget') || 2000;
+    document.getElementById('budget-value').innerText = '$' + savedBudget;
+    updateProgressBar(savedBudget);
+};
+
+function showEditBudget() {
+    document.getElementById('budget-display-mode').style.display = 'none';
+    document.getElementById('budget-edit-mode').style.display = 'block';
+}
+
+function saveNewBudget() {
+    const newBudget = document.getElementById('new-budget-input').value;
+    if (newBudget > 0) {
+        localStorage.setItem('userMonthlyBudget', newBudget); // Saves to user's phone
+        document.getElementById('budget-value').innerText = '$' + newBudget;
+        updateProgressBar(newBudget);
+        
+        // Switch back to display mode
+        document.getElementById('budget-display-mode').style.display = 'block';
+        document.getElementById('budget-edit-mode').style.display = 'none';
+    }
+}
+
+function updateProgressBar(budget) {
+    // This connects your actual expenses to the bar
+    const spent = 1450; // You can link this to your Django expense total later
+    const percentage = Math.min((spent / budget) * 100, 100);
+    document.getElementById('progress-fill').style.width = percentage + '%';
+}
