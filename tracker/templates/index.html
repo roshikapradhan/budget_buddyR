@@ -161,3 +161,32 @@ function updateProgressBar(budget) {
     const percentage = Math.min((spent / budget) * 100, 100);
     document.getElementById('progress-fill').style.width = percentage + '%';
 }
+<script>
+    window.onload = function() { 
+        const savedBudget = localStorage.getItem('userMonthlyBudget') || 2000; 
+        document.getElementById('budget-value').innerText = '$' + savedBudget; 
+        updateProgressBar(savedBudget); 
+    };
+
+    function showEditBudget() { 
+        document.getElementById('budget-display-mode').style.display = 'none'; 
+        document.getElementById('budget-edit-mode').style.display = 'block'; 
+    }
+
+    function saveNewBudget() { 
+        const newBudget = document.getElementById('new-budget-input').value; 
+        if (newBudget > 0) { 
+            localStorage.setItem('userMonthlyBudget', newBudget); 
+            document.getElementById('budget-value').innerText = '$' + newBudget; 
+            updateProgressBar(newBudget); 
+            document.getElementById('budget-display-mode').style.display = 'block'; 
+            document.getElementById('budget-edit-mode').style.display = 'none'; 
+        } 
+    }
+
+    function updateProgressBar(budget) { 
+        const spent = 1450; 
+        const percentage = Math.min((spent / budget) * 100, 100); 
+        document.getElementById('progress-fill').style.width = percentage + '%'; 
+    }
+</script>
