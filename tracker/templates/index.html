@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Budget Buddy 🐰</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Budget Buddy <span id="buddy-emoji">🐰</span></h1>
+            <p>Let's save some money today!</p>
+        </header>
+
+        <div id="character-box" class="bounce">
+            <p id="buddy-msg">"Ready to track!"</p>
+        </div>
+
+        <section class="glass-card">
+            <form id="expense-form">
+                <input type="text" id="title" placeholder="What did you buy?" required>
+                <input type="number" id="amount" placeholder="Amount ($)" required>
+                <select id="category">
+                    <option value="food">Food 🍔</option>
+                    <option value="travel">Travel ✈️</option>
+                    <option value="shopping">Shopping 🛍️</option>
+                    <option value="bills">Bills 📄</option>
+                </select>
+                <button type="submit">Add Expense ✨</button>
+            </form>
+        </section>
+
+        <section class="dashboard">
+            <div class="chart-container">
+                <canvas id="expenseChart"></canvas>
+            </div>
+        </section>
+    </div>
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
